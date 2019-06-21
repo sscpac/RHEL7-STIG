@@ -1119,13 +1119,13 @@
       - notimplemented
 
 - name: "MEDIUM | RHEL-07-020730 | PATCH | The Red Hat Enterprise Linux operating system must be configured so that local initialization files do not execute world-writable programs."
-  command: "true"
-  changed_when: no
+  cron:
+    name: "V-72037 remove write permission from others field for all world-writable programs every minute"
+    job: "find / -xdev -perm -002 -type f -exec chmod o-w {} +"
+    user: root
   when: rhel_07_020730
   tags:
       - RHEL-07-020730
-      - notimplemented
-
 
 - name: "MEDIUM | RHEL-07-020900 | AUDIT | The Red Hat Enterprise Linux operating system must be configured so that all system device files are correctly labeled to prevent unauthorized modification."
   setup:
